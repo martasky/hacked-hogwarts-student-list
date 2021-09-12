@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap");
+
+:root {
+  --bg--color: rgba(43, 2, 176, 1);
+  --tb-odd-color: rgba(72, 50, 173, 1);
+  --tb-hover: rgba(115, 92, 196, 1);
+  --text-color: rgba(249, 155, 85, 1);
+  --secondary-text-color: rgba(43, 2, 176, 1);
+  --btn-color: rgba(247, 178, 132, 1);
+  --btn-hover-color: rgba(249, 155, 85, 1);
+  --primary-font: "Raleway", sans-serif;
+  --secondary-font: "magic_school_oneregular";
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: "magic_school_oneregular";
+  src: url("magic-school.one-webfont.woff2") format("woff2"),
+    url("magic-school.one-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+button {
+  background-color: var(--btn-color);
+  border-radius: 16px;
+  padding: 0.8rem;
+
+  width: 250px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: var(--primary-font);
+  border: none;
+  color: var(--secondary-text-color);
+  margin-bottom: 0.5rem;
+}
+button:hover {
+  background-color: var(--btn-hover-color);
+}
+h1,
+h2,
+p,
+th,
+label {
+  font-family: "magic_school_oneregular";
+  font-weight: normal;
+  color: var(--text-color);
+}
+label {
+  display: flex;
+  flex-direction: column;
+}
+input {
+  padding: 0.8rem;
+  background-color: var(--tb-odd-color);
+  border-radius: 16px;
+  border: none;
+  font-size: 1.438rem;
+  font-weight: bold;
+  font-family: var(--primary-font);
+  color: var(--text-color);
+  height: min-content;
+}
+::placeholder {
+  font-size: 1.438rem;
+  font-weight: bold;
+  font-family: var(--primary-font);
+  color: var(--text-color);
+}
+body,
+header {
+  margin-left: 7rem;
+  margin-right: 7rem;
+  background-color: var(--bg--color);
+}
+header {
+  margin: 0;
+  margin-top: 3rem;
+}
+h1 {
+  font-size: 6rem;
+  text-align: left;
+}
+
+p,
+h2,
+label {
+  font-size: 3rem;
+}
+
+th {
+  font-size: 2.75rem;
+  height: 6rem;
+}
+td {
+  font-family: var(--primary-font);
+  color: var(--text-color);
+  font-size: 1.438rem;
+  height: 6rem;
+  text-align: center;
+}
+
+[data-action] {
+  cursor: pointer;
+}
+
+[data-field="expel"] {
+  background-image: url(images/expel.svg);
+  cursor: pointer;
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+[data-field="prefect"] {
+  background-image: url(images/prefect-inactive.svg);
+  cursor: pointer;
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+[data-field="squad"] {
+  background-image: url(images/squad-inactive.svg);
+  cursor: pointer;
+  background-size: 20%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+}
+tr:nth-child(odd) [data-field="prefect"] {
+  background-image: url(images/prefect-chosen.svg);
+  cursor: pointer;
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+tr:nth-child(2) [data-field="squad"],
+tr:nth-child(5) [data-field="squad"],
+tr:nth-child(11) [data-field="squad"],
+tr:nth-child(22) [data-field="squad"],
+tr:nth-child(28) [data-field="squad"] {
+  background-image: url(images/squad-chosen.svg);
+  cursor: pointer;
+  background-size: 20%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+table {
+  width: 100%;
+}
+#list {
+  border-collapse: collapse;
+}
+
+#list tbody tr td {
+  padding: 4px;
+}
+#list tbody tr:hover {
+  background-color: var(--tb-hover) !important;
+}
+
+#list tbody tr:nth-child(odd) {
+  background-color: var(--tb-odd-color);
+}
+
+#sorting:hover {
+  background-color: var(--bg--color);
+}
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  padding: 3rem;
+  padding-left: 0;
+  padding-right: 0;
+}
+.buttons {
+  grid-row: 2;
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <header><h1>Hogwarts School of Witchcraft and Wizardry</h1></header>
+  <body>
+    <div class="filters">
+      <p>Choose house:</p>
+      <div class="buttons">
+        <button class="filter" data-action="filter" data-filter="gryffindor">
+          Gryffindor
+        </button>
+        <button class="filter" data-action="filter" data-filter="hufflepuff">
+          Hufflepuff
+        </button>
+        <button class="filter" data-action="filter" data-filter="ravenclaw">
+          Ravenclaw
+        </button>
+        <button class="filter" data-action="filter" data-filter="slytherin">
+          Slytherin
+        </button>
+      </div>
+
+      <p>Show students:</p>
+      <div class="buttons">
+        <button class="filter" data-action="filter" data-filter="prefect">
+          Prefects
+        </button>
+        <button class="filter" data-action="filter" data-filter="squad">
+          Inquisitorial squad
+        </button>
+        <button class="filter" data-action="filter" data-filter="expel">
+          Expelled
+        </button>
+      </div>
+
+      <label for="search">Search:</label
+      ><input type="text" id="search" placeholder="Search.." />
+    </div>
+
+    <table id="list">
+      <thead>
+        <tr id="sorting">
+          <th data-action="sort" data-sort-direction="asc" data-sort="name">
+            Name
+          </th>
+          <th
+            data-action="sort"
+            data-sort-direction="asc"
+            data-sort="middlename"
+          >
+            Middle name
+          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="nickname">
+            Nickname
+          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="lastname">
+            Last name
+          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="house">
+            House
+          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="prefect">
+            Prefect
+          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="squad">
+            Inquisitorial squad
+          </th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="expel">
+            Expel
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- animal template will be copied and inserted here -->
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+
+    <template id="student">
+      <tr>
+        <td data-field="name">NAME</td>
+        <td data-field="middlename">TYPE</td>
+        <td data-field="nickname">DESCRIPTION</td>
+        <td data-field="lastname">AGE</td>
+        <td data-field="house">AGE</td>
+        <td data-field="prefect">AGE</td>
+        <td data-field="squad">AGE</td>
+        <td data-field="expel">AGE</td>
+      </tr>
+    </template>
+  </body>
+  <script src="script.js"></script>
+</html>
