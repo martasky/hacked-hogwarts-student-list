@@ -200,63 +200,69 @@ table {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 .student-details-model-content {
-  background-image: url(images/info-popup.svg);
+  background-image: url(images/slytherin-bg-ver2.svg);
   background-repeat: no-repeat;
   background-size: 100%;
   margin: auto;
 
-  width: 600px;
-  height: 800px;
+  width: 530px;
+  height: 730px;
 }
 .student-details {
-  background-color: var(--bg--color);
   position: relative;
-  left: 160px;
-  top: 130px;
+  left: 120px;
+  top: 240px;
   z-index: 1;
-  width: 280px;
+  width: 350px;
   height: 390px;
-  color: var(--text-color);
+  color: black;
   font-family: var(--primary-font);
   padding: 1rem;
-  border-radius: 12px;
 }
-.student-modal-img {
-  align-self: center;
-}
-[data-student-modal="house"] {
-  font-family: var(--secondary-font);
-  font-size: 2rem;
-  text-align: center;
-}
-.wrapper img,
-.wrapper img {
-  width: 15%;
-}
+
 [data-student-modal="prefect"],
 [data-student-modal="squad"] {
-  align-self: center;
-}
-.student-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-.wrapper {
-  display: flex;
-  flex-direction: row;
-}
-.info-wrapper {
-  padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
 }
-.info-wrapper-text {
+[data-student-modal="prefect"] img,
+[data-student-modal="squad"] img {
+  width: 70%;
+}
+.student-functions {
+  grid-column: 2 / -1;
   display: flex;
   flex-direction: column;
-
-  justify-content: space-evenly;
+  justify-content: space-around;
+  margin-left: -1rem;
 }
+
+.popup-student-names {
+  display: flex;
+  justify-content: start;
+  font-family: var(--secondary-font);
+  padding-right: 0.5rem;
+  font-size: 2.2rem;
+}
+[data-student-modal="name"],
+[data-student-modal="middlename"],
+[data-student-modal="nickname"] {
+  padding-right: 1rem;
+}
+.popup-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 1rem;
+  grid-row-gap: 1rem;
+}
+[data-student-modal="expel"] {
+  grid-column: 1 / -1;
+}
+[data-student-modal="blood"] {
+  grid-column: 1 / -1;
+}
+
 /* The Close Button */
 /* .close {
   color: #aaaaaa;

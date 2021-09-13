@@ -13,7 +13,14 @@ const Student = {
 };
 
 function start() {
+  registerButtons();
   loadJSON();
+}
+
+function registerButtons() {
+  document
+    .querySelectorAll(`[data-action="filter"]`)
+    .forEach((button) => button.addEventListener("click", selectFilter));
 }
 
 //lets fetch json from database
@@ -59,7 +66,67 @@ function prepareObjects(jsonData) {
     console.log("this is", student);
     console.table(allStudents);
   });
-  displayList();
+  displayList(allStudents);
+}
+
+function selectFilter(event) {
+  const filter = event.target.dataset.filter;
+  console.log("user selecter", filter);
+  filterList(filter);
+}
+function filterList(house) {
+  const filteredList = allStudents.filter(isHouseType);
+
+  function isHouseType(student) {
+    if (student.house === house) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  // create filtered list of only cats
+
+  displayList(filteredList);
+}
+/* function filterList(filterBy) {
+  // create filtered list of only cats
+  let filteredList = allStudents;
+  if (filterBy === "gryffindor") {
+    filteredList = allStudents.filter(isGryffindor);
+  } else if (filterBy === "hufflepuff") {
+    filteredList = allStudents.filter(isHufflepuff);
+  } else if (filterBy === "ravenclaw") {
+    filteredList = allStudents.filter(isRavenclaw);
+  } else {
+    filteredList = allStudents.filter(isSlytherin);
+  }
+
+  displayList(filteredList);
+} */
+function isGryffindor(student) {
+  console.log("is grffinfor", student);
+  if (student.house === "Gryffindor") {
+    return true;
+  }
+  return false;
+}
+function isHufflepuff(student) {
+  if (student.house === "Hufflepuff") {
+    return true;
+  }
+  return false;
+}
+function isRavenclaw(student) {
+  if (student.house === "Ravenclaw") {
+    return true;
+  }
+  return false;
+}
+function isSlytherin(student) {
+  if (student.house === "Slytherin") {
+    return true;
+  }
+  return false;
 }
 
 function getFirstName(fullname) {
@@ -163,11 +230,11 @@ function getHouse(houseName) {
   return housename[0].toUpperCase() + housename.substring(1);
 }
 
-function displayList() {
+function displayList(students) {
   // clear the list
   document.querySelector("#list tbody").innerHTML = "";
   // build a new list
-  allStudents.forEach(displayStudent);
+  students.forEach(displayStudent);
 }
 
 function displayStudent(student) {
@@ -187,9 +254,26 @@ function displayStudent(student) {
   clone.querySelector("[data-field=prefect]").textContent = student.prefect;
   clone.querySelector("[data-field=squad]").textContent = student.squad;
   clone.querySelector("[data-field=expel]").textContent = student.expel;
-  clone.querySelector("tr td").addEventListener("click", function () {
-    showDetails(student);
-  });
+  clone
+    .querySelector("[data-field=name]")
+    .addEventListener("click", function () {
+      showDetails(student);
+    });
+  clone
+    .querySelector("[data-field=middlename]")
+    .addEventListener("click", function () {
+      showDetails(student);
+    });
+  clone
+    .querySelector("[data-field=nickname]")
+    .addEventListener("click", function () {
+      showDetails(student);
+    });
+  clone
+    .querySelector("[data-field=lastname]")
+    .addEventListener("click", function () {
+      showDetails(student);
+    });
   /*   clone.querySelector("img").src = "checkImage(student.img)";
   console.log("this is clone img");
   console.log(clone.querySelector("img").src); */
@@ -226,6 +310,24 @@ function showDetails(student) {
   document.querySelector("[data-student-modal=name]").textContent =
     student.firstName;
 
+  if (student.house === "Gryffindor") {
+    document.querySelector(
+      ".student-details-model-content"
+    ).style.backgroundImage = "url(images/gryffindor-bg.svg)";
+  } else if (student.house === "Hufflepuff") {
+    document.querySelector(
+      ".student-details-model-content"
+    ).style.backgroundImage = "url(images/hufflepuff-bg.svg)";
+  } else if (student.house === "Ravenclaw") {
+    document.querySelector(
+      ".student-details-model-content"
+    ).style.backgroundImage = "url(images/ravenclaw-bg.svg)";
+  } else {
+    document.querySelector(
+      ".student-details-model-content"
+    ).style.backgroundImage = "url(images/slytherin-bg.svg)";
+  }
+
   if (student.middleName === "") {
     document.querySelector("[data-student-modal=middlename]").style.display =
       "none";
@@ -243,8 +345,7 @@ function showDetails(student) {
 
   document.querySelector("[data-student-modal=lastname]").textContent =
     student.lastName;
-  document.querySelector("[data-student-modal=house]").textContent =
-    student.house;
+
   document.querySelector("[data-student-modal=img] img").src = student.img;
 
   window.onclick = function (event) {
