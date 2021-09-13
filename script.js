@@ -150,7 +150,7 @@ function getImg(firstName, lastName) {
   let imgname;
 
   imgname =
-    "http://127.0.0.1:8080/images/" +
+    "images/" +
     lastName.toLowerCase() +
     "_" +
     firstName[0].toLowerCase() +
@@ -187,7 +187,9 @@ function displayStudent(student) {
   clone.querySelector("[data-field=prefect]").textContent = student.prefect;
   clone.querySelector("[data-field=squad]").textContent = student.squad;
   clone.querySelector("[data-field=expel]").textContent = student.expel;
-
+  clone.querySelector("tr td").addEventListener("click", function () {
+    showDetails(student);
+  });
   /*   clone.querySelector("img").src = "checkImage(student.img)";
   console.log("this is clone img");
   console.log(clone.querySelector("img").src); */
@@ -216,6 +218,44 @@ function displayStudent(student) {
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
+}
+function showDetails(student) {
+  console.log("name has been clicked");
+  document.querySelector("#student-details-modal").style.display = "block";
+
+  document.querySelector("[data-student-modal=name]").textContent =
+    student.firstName;
+
+  if (student.middleName === "") {
+    document.querySelector("[data-student-modal=middlename]").style.display =
+      "none";
+  } else {
+    document.querySelector("[data-student-modal=middlename]").textContent =
+      student.middleName;
+  }
+  if (student.nickName === "") {
+    document.querySelector("[data-student-modal=nickname]").style.display =
+      "none";
+  } else {
+    document.querySelector("[data-student-modal=nickname]").textContent =
+      student.nickName;
+  }
+
+  document.querySelector("[data-student-modal=lastname]").textContent =
+    student.lastName;
+  document.querySelector("[data-student-modal=house]").textContent =
+    student.house;
+  document.querySelector("[data-student-modal=img] img").src = student.img;
+
+  window.onclick = function (event) {
+    if (event.target == document.querySelector("#student-details-modal")) {
+      document.querySelector("#student-details-modal").style.display = "none";
+      document.querySelector("[data-student-modal=middlename]").style.display =
+        "initial";
+      document.querySelector("[data-student-modal=nickname]").style.display =
+        "initial";
+    }
+  };
 }
 function checkImage(url) {
   console.log("this is url in checkImage", url);

@@ -24,7 +24,7 @@
   font-weight: normal;
   font-style: normal;
 }
-button {
+.buttons button {
   background-color: var(--btn-color);
   border-radius: 16px;
   padding: 0.8rem;
@@ -40,6 +40,12 @@ button {
 button:hover {
   background-color: var(--btn-hover-color);
 }
+/* .student-details {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: none;
+} */
 h1,
 h2,
 p,
@@ -155,15 +161,15 @@ table {
   border-collapse: collapse;
 }
 
-#list tbody tr td {
-  padding: 4px;
-}
 #list tbody tr:hover {
   background-color: var(--tb-hover) !important;
 }
 
 #list tbody tr:nth-child(odd) {
   background-color: var(--tb-odd-color);
+}
+#list tbody tr:nth-child(even) {
+  background-color: var(--bg--color);
 }
 
 #sorting:hover {
@@ -179,3 +185,105 @@ table {
 .buttons {
   grid-row: 2;
 }
+/*********** Student details pop up ********'*/
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.student-details-model-content {
+  background-image: url(images/info-popup.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin: auto;
+
+  width: 600px;
+  height: 800px;
+}
+.student-details {
+  background-color: var(--bg--color);
+  position: relative;
+  left: 160px;
+  top: 130px;
+  z-index: 1;
+  width: 280px;
+  height: 390px;
+  color: var(--text-color);
+  font-family: var(--primary-font);
+  padding: 1rem;
+  border-radius: 12px;
+}
+.student-modal-img {
+  align-self: center;
+}
+[data-student-modal="house"] {
+  font-family: var(--secondary-font);
+  font-size: 2rem;
+  text-align: center;
+}
+.wrapper img,
+.wrapper img {
+  width: 15%;
+}
+[data-student-modal="prefect"],
+[data-student-modal="squad"] {
+  align-self: center;
+}
+.student-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.info-wrapper {
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.info-wrapper-text {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-evenly;
+}
+/* The Close Button */
+/* .close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+} */
+/* @media screen and (min-width: 1600px) {
+  .student-details-model-content {
+    background-image: url(images/info-popup.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: auto;
+
+    width: 800px;
+    height: 1000px;
+  }
+  .student-details {
+    background-color: var(--btn-color);
+    position: relative;
+    left: 210px;
+    top: 150px;
+    z-index: 1;
+    width: 380px;
+    height: 560px;
+    color: var(--bg--color);
+    font-family: var(--primary-font);
+  }
+}
+ */
