@@ -2,6 +2,13 @@
 
 window.addEventListener("DOMContentLoaded", start);
 const allStudents = [];
+const searchBar = document.querySelector("#search");
+
+const settings = {
+  filter: "all",
+  sortBy: "firstName",
+  sortDir: "asc",
+};
 
 const Student = {
   firstName: "",
@@ -10,10 +17,14 @@ const Student = {
   nickName: "",
   img: "",
   house: "",
+  prefect: false,
+  squad: false,
+  expelled: false,
 };
 
 function start() {
   registerButtons();
+
   loadJSON();
 }
 
@@ -21,6 +32,10 @@ function registerButtons() {
   document
     .querySelectorAll(`[data-action="filter"]`)
     .forEach((button) => button.addEventListener("click", selectFilter));
+  document
+    .querySelectorAll(`[data-action="sort"]`)
+    .forEach((button) => button.addEventListener("click", selectSort));
+  searchBar.addEventListener("keyup", search);
 }
 
 //lets fetch json from database
@@ -66,43 +81,77 @@ function prepareObjects(jsonData) {
     console.log("this is", student);
     console.table(allStudents);
   });
-  displayList(allStudents);
+  /*   displayList(allStudents); */
+  buildList();
+}
+
+function search(e) {
+  const searchVal = e.target.value.toLowerCase();
+  const searchResult = allStudents.filter((student) => {
+    return (
+      student.firstName.toLowerCase().includes(searchVal) ||
+      student.middleName.toLowerCase().includes(searchVal) ||
+      student.nickName.toLowerCase().includes(searchVal) ||
+      student.lastName.toLowerCase().includes(searchVal) ||
+      student.house.toLowerCase().includes(searchVal)
+    );
+  });
+  console.log(searchResult);
+  displayList(searchResult);
 }
 
 function selectFilter(event) {
   const filter = event.target.dataset.filter;
-  console.log("user selecter", filter);
-  filterList(filter);
+  console.log("user selected", filter);
+  setFilter(filter);
 }
-function filterList(house) {
-  const filteredList = allStudents.filter(isHouseType);
-
-  function isHouseType(student) {
-    if (student.house === house) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  // create filtered list of only cats
-
-  displayList(filteredList);
+function setFilter(filter) {
+  settings.filter = filter;
+  buildList();
 }
-/* function filterList(filterBy) {
-  // create filtered list of only cats
-  let filteredList = allStudents;
-  if (filterBy === "gryffindor") {
-    filteredList = allStudents.filter(isGryffindor);
-  } else if (filterBy === "hufflepuff") {
-    filteredList = allStudents.filter(isHufflepuff);
-  } else if (filterBy === "ravenclaw") {
-    filteredList = allStudents.filter(isRavenclaw);
+function selectSort(event) {
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
+
+  // find old sortby element and remove .sortBy
+  const oldElement = document.querySelector(`[data-sort="${settings.sortBy}"]`);
+  oldElement.classList.remove("sortby");
+
+  // indicate active sort
+  event.target.classList.add("sortby");
+  // toggle the direction
+  if (sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
   } else {
+    event.target.dataset.sortDirection = "asc";
+  }
+  console.log("user selecter", sortBy);
+  setSort(sortBy, sortDir);
+}
+
+function setSort(sortBy, sortDir) {
+  settings.sortBy = sortBy;
+  settings.sortDir = sortDir;
+  buildList();
+}
+function filterList(filteredList) {
+  // create filtered list of only cats
+
+  if (settings.filter === "gryffindor") {
+    filteredList = allStudents.filter(isGryffindor);
+  } else if (settings.filter === "hufflepuff") {
+    filteredList = allStudents.filter(isHufflepuff);
+  } else if (settings.filter === "ravenclaw") {
+    filteredList = allStudents.filter(isRavenclaw);
+  } else if (settings.filter === "slytherin") {
     filteredList = allStudents.filter(isSlytherin);
+  } else {
+    filteredList = allStudents.filter(all);
   }
 
-  displayList(filteredList);
-} */
+  return filteredList;
+}
+
 function isGryffindor(student) {
   console.log("is grffinfor", student);
   if (student.house === "Gryffindor") {
@@ -127,6 +176,69 @@ function isSlytherin(student) {
     return true;
   }
   return false;
+}
+function all(student) {
+  return true;
+}
+/* function filterList(house) {
+  const filteredList = allStudents.filter(isHouse);
+
+  function isHouse(student) {
+    console.log("this is student in the house", student);
+    console.log("this is house", house);
+    if (student.house.toLowerCase() === house) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  return filteredList;
+} */
+/* function selectSort(event) {
+  const sortBy = event.target.dataset.sort;
+  console.log("user selecter", sortBy);
+  sortList(sortBy);
+} */
+/* 
+function sortList(sortedList) {
+  let sortedList = allStudents;
+
+  sortedList = sortedList.sort(sortByAll);
+
+  function sortByAll(studentA, studentB) {
+    if (studentA[sortBy] < studentB[sortBy]) {
+      return -1;
+    }
+    return 1;
+  }
+
+  displayList(sortedList);
+} */
+function sortList(sortedList) {
+  let direction = 1;
+  if (settings.sortDir === "desc") {
+    direction = -1;
+  } else {
+    direction = 1;
+  }
+  sortedList = sortedList.sort(sortBy);
+
+  function sortBy(studentA, studentB) {
+    console.log("this is studentA", studentA);
+    if (studentA[settings.sortBy] < studentB[settings.sortBy]) {
+      return -1 * direction;
+    }
+    return 1 * direction;
+  }
+
+  return sortedList;
+}
+
+function buildList() {
+  const currentList = filterList(allStudents); // FUTURE: Filter and sort currentList before displaying
+  const sortedList = sortList(currentList);
+  displayList(sortedList);
 }
 
 function getFirstName(fullname) {
@@ -164,19 +276,6 @@ function getLastName(fullname) {
       }
     }
     lastnameCap = lastname[0].toUpperCase() + letter.substring(1);
-
-    /*  followHyphen =
-      lastname.substring(0, lastname.indexOf("-")) +
-      lastname.substring(lastname.indexOf("-" + 1, lastname.length)); */
-    /*   lastnameCap =
-      lastname[0].toUpperCase() +
-      lastname.substring(1, lastname.indexOf("-")).toLowerCase() +
-      lastname
-        .substring(lastname.indexOf("-") + 1, lastname.indexOf("-") + 2)
-        .toUpperCase() +
-      lastname
-        .substring(lastname.indexOf("-" + 2, lastname.length))
-        .toLowerCase(); */
   } else {
     lastnameCap = lastname[0].toUpperCase() + lastname.substring(1);
   }
@@ -215,13 +314,23 @@ function getNickName(fullname) {
 }
 function getImg(firstName, lastName) {
   let imgname;
-
-  imgname =
-    "images/" +
-    lastName.toLowerCase() +
-    "_" +
-    firstName[0].toLowerCase() +
-    ".png";
+  if (lastName === "Patil") {
+    imgname =
+      "images/" +
+      lastName.toLowerCase() +
+      "_" +
+      firstName.toLowerCase() +
+      ".png";
+  } else if (lastName.includes("-") || lastName === "") {
+    imgname = "images/person-icon.png";
+  } else {
+    imgname =
+      "images/" +
+      lastName.toLowerCase() +
+      "_" +
+      firstName[0].toLowerCase() +
+      ".png";
+  }
   return imgname;
 }
 
@@ -246,14 +355,15 @@ function displayStudent(student) {
 
   // set clone data
   clone.querySelector("[data-field=name]").textContent = student.firstName;
+
   clone.querySelector("[data-field=middlename]").textContent =
     student.middleName;
   clone.querySelector("[data-field=nickname]").textContent = student.nickName;
   clone.querySelector("[data-field=lastname]").textContent = student.lastName;
   clone.querySelector("[data-field=house]").textContent = student.house;
-  clone.querySelector("[data-field=prefect]").textContent = student.prefect;
+  /*  clone.querySelector("[data-field=prefect]").textContent = student.prefect;
   clone.querySelector("[data-field=squad]").textContent = student.squad;
-  clone.querySelector("[data-field=expel]").textContent = student.expel;
+  clone.querySelector("[data-field=expel]").textContent = student.expel; */
   clone
     .querySelector("[data-field=name]")
     .addEventListener("click", function () {
@@ -274,31 +384,6 @@ function displayStudent(student) {
     .addEventListener("click", function () {
       showDetails(student);
     });
-  /*   clone.querySelector("img").src = "checkImage(student.img)";
-  console.log("this is clone img");
-  console.log(clone.querySelector("img").src); */
-
-  /* function checkImage(url) {
-    let newURL;
-    let request = new XMLHttpRequest();
-    request.open("GET", url, true);
-    request.send();
-    request.onload = function () {
-      status = request.status;
-      if (request.status === 200) {
-        console.log("img exists");
-        newURL =
-          "https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png";
-        console.log(newURL);
-      } else {
-        console.log("img doesnt exist");
-        newURL =
-          "https://eitrawmaterials.eu/wp-content/uploads/2016/09/person-icon.png";
-        console.log(newURL);
-      }
-    };
-    return newURL;
-  } */
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
@@ -357,27 +442,4 @@ function showDetails(student) {
         "initial";
     }
   };
-}
-function checkImage(url) {
-  console.log("this is url in checkImage", url);
-  fetch(url)
-    .then((response) => {
-      //console.log(response);
-      if (!response.ok) {
-        console.log("The image does not exist");
-        let NewUrl =
-          "https://www.dmarge.com/wp-content/uploads/2021/01/dwayne-the-rock-.jpg";
-        console.log("this is newurl", NewUrl);
-
-        return NewUrl;
-      }
-
-      return url;
-    })
-    .catch((error) => {
-      console.error(
-        "There has been a problem with your fetch operation:",
-        error
-      );
-    });
 }

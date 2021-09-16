@@ -27,10 +27,10 @@
 .buttons button {
   background-color: var(--btn-color);
   border-radius: 16px;
-  padding: 0.8rem;
+  padding: 0.5rem;
 
-  width: 250px;
-  font-size: 1.2rem;
+  width: 212px;
+  font-size: 1rem;
   font-weight: bold;
   font-family: var(--primary-font);
   border: none;
@@ -135,14 +135,14 @@ td {
   background-position: center;
   background-repeat: no-repeat;
 }
-tr:nth-child(odd) [data-field="prefect"] {
+/* tr:nth-child(odd) [data-field="prefect"] {
   background-image: url(images/prefect-chosen.svg);
   cursor: pointer;
   background-size: 50%;
   background-position: center;
   background-repeat: no-repeat;
-}
-tr:nth-child(2) [data-field="squad"],
+} */
+/* tr:nth-child(2) [data-field="squad"],
 tr:nth-child(5) [data-field="squad"],
 tr:nth-child(11) [data-field="squad"],
 tr:nth-child(22) [data-field="squad"],
@@ -152,7 +152,7 @@ tr:nth-child(28) [data-field="squad"] {
   background-size: 20%;
   background-position: center;
   background-repeat: no-repeat;
-}
+} */
 
 table {
   width: 100%;
@@ -181,6 +181,7 @@ table {
   padding: 3rem;
   padding-left: 0;
   padding-right: 0;
+  width: 70%;
 }
 .buttons {
   grid-row: 2;
@@ -291,5 +292,18 @@ table {
     color: var(--bg--color);
     font-family: var(--primary-font);
   }
+}
+ */
+
+#sorting th.sortby {
+  text-decoration: underline;
+}
+/* 
+#sorting th.sortby[data-sort-direction="asc"]::after {
+  content: "⇓";
+}
+
+#sorting th.sortby[data-sort-direction="desc"]::after {
+  content: "⇑";
 }
  */

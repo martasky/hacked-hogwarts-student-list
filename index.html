@@ -37,6 +37,9 @@
         <button class="filter" data-action="filter" data-filter="expel">
           Expelled
         </button>
+        <button class="filter" data-action="filter" data-filter="all">
+          All
+        </button>
       </div>
 
       <label for="search">Search:</label
@@ -46,20 +49,20 @@
     <table id="list">
       <thead>
         <tr id="sorting">
-          <th data-action="sort" data-sort-direction="asc" data-sort="name">
+          <th data-action="sort" data-sort-direction="asc" data-sort="firstName">
             Name
           </th>
           <th
             data-action="sort"
             data-sort-direction="asc"
-            data-sort="middlename"
+            data-sort="middleName"
           >
             Middle name
           </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="nickname">
+          <th data-action="sort" data-sort-direction="asc" data-sort="nickName">
             Nickname
           </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="lastname">
+          <th data-action="sort" data-sort-direction="asc" data-sort="lastName">
             Last name
           </th>
           <th data-action="sort" data-sort-direction="asc" data-sort="house">
@@ -89,9 +92,9 @@
         <td data-field="nickname">DESCRIPTION</td>
         <td data-field="lastname">AGE</td>
         <td data-field="house">AGE</td>
-        <td data-field="prefect">AGE</td>
-        <td data-field="squad">AGE</td>
-        <td data-field="expel">AGE</td>
+        <td data-field="prefect"></td>
+        <td data-field="squad"></td>
+        <td data-field="expel"></td>
       </tr>
     </template>
     <div id="student-details-modal" class="modal">
