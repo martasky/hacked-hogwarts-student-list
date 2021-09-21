@@ -41,7 +41,19 @@
           All
         </button>
       </div>
+<div id="howgarts-numbers">
+<h2>Hogwarts in numbers:</h2>
+<ul>
+  <li>Gryffindor: <span></span></li>
+  <li>Hufflepuff: <span></span></li>
+  <li>Ravenclaw: <span></span></li>
+  <li>Slytherin: <span></span></li>
+  <li>Total number of students: <span></span></li>
+  <li>Expelled students: <span></span></li>
+  <li>Currently displayed students: <span></span></li>
+</ul>
 
+</div>
       <label for="search">Search:</label
       ><input type="text" id="search" placeholder="Search.." />
     </div>
@@ -118,11 +130,99 @@
         
         <div data-student-modal="prefect">Prefect:<img src="images/prefect-chosen.svg"></div>
        <div data-student-modal="squad">Inquisitorial squad:<img src="images/squad-chosen.svg"></div></div>
-        <div data-student-modal="blood">Blood status: Muggle</div><div data-student-modal="expel">Expelled: No</div></div>
+        <div data-student-modal="blood">Blood status: Muggle</div>
+        <div data-student-modal="expel">Expelled: No</div></div>
         
         </div>
         </div>
       </div>
+
+      <div id="expel_student" class="modal2 hide">
+        <div class="dialog">
+          <!-- <button class="closebutton">X</button> -->
+          <!-- <h1>Warning!</h1> -->
+          <div class="dialog_content">
+          <p>
+            Would you like to expel <span>student name</span>?
+          </p>
+          <div class="buttons-wrapper">
+        <button id="yes">Yes</button>
+        <button id="no">No</button></div>
+        </div>
+         <!--  <button id="removeother">
+            Remove <span data-field="otherwinner">other</span>
+          </button> -->
+        </div>
+      </div>
+  <!--     <div id="make_prefect" class="modal2 hide">
+        <div class="dialog">
+          
+          <div class="dialog_content">
+          <p>
+            Would you like to make <span>student name</span> a prefect?
+          </p>
+          <div class="buttons-wrapper">
+        <button id="yes">Yes</button>
+        <button id="no">No</button></div>
+        </div>
+        
+        </div>
+      </div> -->
+   <!--    <div id="remove_prefect" class="modal2 hide">
+        <div class="dialog">
+        
+          <div class="dialog_content">
+          <p>
+            Would you like to remove <span>student name</span> from prefects?</p>
+          <div class="buttons-wrapper">
+        <button id="yes">Yes</button>
+        <button id="no">No</button></div>
+        </div> -->
+         <!--  <button id="removeother">
+            Remove <span data-field="otherwinner">other</span>
+          </button> -->
+        </div>
+      </div>
+      <div id="remove_other" class="modal2 hide">
+        <div class="dialog">
+          <!-- <button class="closebutton">X</button> -->
+          <!-- <h1>Warning!</h1> -->
+          <div class="dialog_content">
+          <p>
+            There can be only one <span></span> prefect in a house<br />Do you want to remove
+            the other prefect?
+          </p>
+          <div class="buttons-wrapper">
+        <button id="yes">Yes</button>
+        <button id="no">No</button></div>
+        </div>
+         <!--  <button id="removeother">
+            Remove <span data-field="otherwinner">other</span>
+          </button> -->
+        </div>
+      </div>
+     <!--  <div id="remove_aorb" class="modal2 hide">
+        <div class="dialog">
+          
+          <div class="dialog_content">
+          <p>
+            There can not be more than two prefects in one house<br />Do you want to remove one
+          of the existing prefects?
+          </p>
+          <div class="buttons-wrapper">
+            <button id="removea">
+              Remove <span data-field="prefectA">A</span>
+            </button>
+            <button id="removeb">
+              Remove <span data-field="prefectB">B</span>
+            </button></div>
+        </div> -->
+         <!--  <button id="removeother">
+            Remove <span data-field="otherwinner">other</span>
+          </button> -->
+        </div>
+      </div>
+
     </div>
   </body>
   <script src="script.js"></script>

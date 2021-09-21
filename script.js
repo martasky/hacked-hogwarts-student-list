@@ -1,8 +1,8 @@
 "use strict";
 
 window.addEventListener("DOMContentLoaded", start);
-const allStudents = [];
-const searchBar = document.querySelector("#search");
+let allStudents = [];
+let expelledStudents = [];
 
 const settings = {
   filter: "all",
@@ -17,6 +17,7 @@ const Student = {
   nickName: "",
   img: "",
   house: "",
+  gender: "boy",
   prefect: false,
   squad: false,
   expelled: false,
@@ -35,7 +36,7 @@ function registerButtons() {
   document
     .querySelectorAll(`[data-action="sort"]`)
     .forEach((button) => button.addEventListener("click", selectSort));
-  searchBar.addEventListener("keyup", search);
+  document.querySelector("#search").addEventListener("keyup", search);
 }
 
 //lets fetch json from database
@@ -75,7 +76,9 @@ function prepareObjects(jsonData) {
     student.nickName = nickName;
     student.img = img;
     student.house = house;
-
+    student.gender = elm.gender;
+    student.expelled = false;
+    student.prefect = false;
     // adding new objects to the global array
     allStudents.push(student);
     console.log("this is", student);
@@ -145,6 +148,8 @@ function filterList(filteredList) {
     filteredList = allStudents.filter(isRavenclaw);
   } else if (settings.filter === "slytherin") {
     filteredList = allStudents.filter(isSlytherin);
+  } else if (settings.filter === "expel") {
+    filteredList = expelledStudents;
   } else {
     filteredList = allStudents.filter(all);
   }
@@ -173,6 +178,12 @@ function isRavenclaw(student) {
 }
 function isSlytherin(student) {
   if (student.house === "Slytherin") {
+    return true;
+  }
+  return false;
+}
+function isExpelled(student) {
+  if (student.expelled === true) {
     return true;
   }
   return false;
@@ -225,7 +236,7 @@ function sortList(sortedList) {
   sortedList = sortedList.sort(sortBy);
 
   function sortBy(studentA, studentB) {
-    console.log("this is studentA", studentA);
+    /* console.log("this is studentA", studentA); */
     if (studentA[settings.sortBy] < studentB[settings.sortBy]) {
       return -1 * direction;
     }
@@ -347,7 +358,7 @@ function displayList(students) {
 }
 
 function displayStudent(student) {
-  console.log("this is student in the display function", student);
+  /*  console.log("this is student in the display function", student); */
   // create clone
   const clone = document
     .querySelector("template#student")
@@ -385,6 +396,75 @@ function displayStudent(student) {
       showDetails(student);
     });
 
+  // expelling
+  clone
+    .querySelector("[data-field=expel]")
+    .addEventListener("click", expelStudent);
+
+  function expelStudent() {
+    console.log("expel has been clicked");
+    //show modal
+    document.querySelector("#expel_student").classList.remove("hide");
+    document.querySelector(
+      ".dialog_content p span"
+    ).textContent = `${student.firstName} ${student.lastName}`;
+
+    window.onclick = function (event) {
+      if (event.target == document.querySelector("#expel_student")) {
+        document.querySelector("#expel_student").classList.add("hide");
+      }
+    };
+    document.querySelector("#no").addEventListener("click", closeDialog);
+
+    document.querySelector("#yes").addEventListener("click", function () {
+      removeStudent(student);
+    });
+  }
+  if (student.expelled === true) {
+    clone
+      .querySelector("[data-field=expel]")
+      .removeEventListener("click", expelStudent);
+  }
+
+  /****** Prefects **********/
+  clone.querySelector("[data-field=prefect").dataset.prefect = student.prefect;
+
+  clone
+    .querySelector("[data-field=prefect")
+    .addEventListener("click", clickPrefect);
+
+  function clickPrefect() {
+    console.log("what is it after click", student.prefect);
+    console.log(allStudents);
+    console.log(student);
+
+    if (student.prefect === true) {
+      student.prefect = false;
+    } else {
+      checkIfCanBePrefect(student);
+    }
+    /*   if (student.prefect) {
+      document.querySelector("#remove_prefect").classList.remove("hide");
+      document
+        .querySelector("#remove_prefect #yes")
+        .addEventListener("click", function () {
+          student.prefect = false;
+          document.querySelector("#remove_prefect").classList.add("hide");
+        });
+
+      student.prefect = false;
+    } else {
+      checkIfCanBePrefect(student);
+      /* student.prefect = true; */
+    buildList();
+  }
+  /*   if (student.prefect === true) {
+    clone.querySelector("[data-field=prefect]").style.backgroundImage =
+      "url(images/prefect-chosen.svg)";
+  } else {
+    clone.querySelector("[data-field=prefect]").style.backgroundImage =
+      "url(images/prefect-inactive.svg)";
+  } */
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
@@ -433,6 +513,11 @@ function showDetails(student) {
 
   document.querySelector("[data-student-modal=img] img").src = student.img;
 
+  if (student.expelled === true) {
+    document.querySelector("[data-student-modal=expel]").textContent =
+      "Expelled: Yes";
+  }
+
   window.onclick = function (event) {
     if (event.target == document.querySelector("#student-details-modal")) {
       document.querySelector("#student-details-modal").style.display = "none";
@@ -442,4 +527,305 @@ function showDetails(student) {
         "initial";
     }
   };
+}
+function closeDialog() {
+  document.querySelector("#expel_student").classList.add("hide");
+}
+function removeStudent(chosenStudent) {
+  console.log("what is student here", chosenStudent);
+
+  if (chosenStudent.expelled === false) {
+    chosenStudent.expelled = true;
+    const studentIndex = allStudents.indexOf(chosenStudent);
+    console.log(studentIndex);
+    allStudents.splice(studentIndex, 1);
+
+    console.log("has he been removed??", allStudents);
+    expelledStudents.push(chosenStudent);
+
+    console.log("this is expelled students list", expelledStudents);
+  }
+  buildList();
+  closeDialog();
+}
+
+function removeaPrefect(student) {
+  document.querySelector("#remove_prefect").classList.remove("hide");
+  student.prefect = false;
+}
+function makeaPrefect(student) {
+  const prefects = allStudents.filter((student) => student.prefect);
+  const prefectLen = prefects.length;
+  console.log("this are prefects", prefects);
+  /* function isPrefect(student) {
+    if (student.prefect === true) {
+      return true;
+    } else {
+      return false;
+    }
+  } */
+
+  let prefectsFromTheSameHouse = prefects.filter((prefect) => {
+    return prefect.house === student.house;
+  });
+  /*  let prefectsFromTheSameHouse;
+
+  if (chosen === "gryffindor") {
+    prefectsFromTheSameHouse = prefects.filter(isPrefectFromGryffindor);
+  } else if (chosen === "hufflepuff") {
+    prefectsFromTheSameHouse = prefects.filter(isPrefectFromHufflepuff);
+  } else if (chosen === "ravenclaw") {
+    prefectsFromTheSameHouse = prefects.filter(isPrefectFromRavenclaw);
+  } else {
+    prefectsFromTheSameHouse = prefects.filter(isPrefectFromSlytherin);
+  }
+
+  function isPrefectFromRavenclaw(prefect) {
+    if (prefect.house === "Ravenclaw") {
+      prefectsFromTheSameHouse = console.log("prefevt house", prefect.house);
+      return true;
+    } else {
+      console.log("prefevt house", prefect.house);
+      return false;
+    }
+  }
+  function isPrefectFromGryffindor(prefect) {
+    if (prefect.house === "Gryffindor") {
+      prefectsFromTheSameHouse = console.log("prefevt house", prefect.house);
+      return true;
+    } else {
+      console.log("prefevt house", prefect.house);
+      return false;
+    }
+  }
+  function isPrefectFromHufflepuff(prefect) {
+    if (prefect.house === "Hufflepuff") {
+      prefectsFromTheSameHouse = console.log("prefevt house", prefect.house);
+      return true;
+    } else {
+      console.log("prefevt house", prefect.house);
+      return false;
+    }
+  }
+  function isPrefectFromSlytherin(prefect) {
+    if (prefect.house === "Slytherin") {
+      prefectsFromTheSameHouse = console.log("prefevt house", prefect.house);
+      return true;
+    } else {
+      console.log("prefevt house", prefect.house);
+      return false;
+    }
+  }
+*/
+
+  if (prefectsFromTheSameHouse.length >= 1) {
+    prefectsFromTheSameHouse.forEach((prefectFromTheSameHouse) => {
+      if (prefectFromTheSameHouse.gender === student.gender) {
+        document.querySelector("#remove_other").classList.remove("hide");
+      } else {
+        document.querySelector("#make_prefect").classList.remove("hide");
+      }
+    });
+  }
+  if (prefectLen >= 0) {
+    console.log("wtf is this", student.prefect);
+    document.querySelector("#make_prefect").classList.remove("hide");
+
+    document.querySelector(
+      "#make_prefect p span"
+    ).textContent = `${student.firstName} ${student.lastName}`;
+
+    document
+      .querySelector("#make_prefect #no")
+      .addEventListener("click", function () {
+        /*  const clone = document
+          .querySelector("template#student")
+          .content.cloneNode(true);
+        clone.querySelector("[data-field=prefect]").style.backgroundImage =
+          "url(images/prefect-inactive.svg)"; */
+        student.prefect = false;
+        console.log("this is studnt sratus", student.prefect);
+        console.log(student);
+        document.querySelector("#make_prefect").classList.add("hide");
+      });
+
+    document
+      .querySelector("#make_prefect #yes")
+      .addEventListener("click", function () {
+        /*  const clone = document
+          .querySelector("template#student")
+          .content.cloneNode(true);
+        clone.querySelector("[data-field=prefect]").style.backgroundImage =
+          "url(images/prefect-chosen.svg)"; */
+        student.prefect = true;
+        console.log("this is studnt sratus", student.prefect);
+        prefects.push(student);
+        console.log(prefects);
+        console.log(student);
+        /* clone.querySelector("[data-field=prefect]").style.backgroundImage =
+          "url(images/prefect-inactive.svg)"; */
+        document.querySelector("#make_prefect").classList.add("hide");
+      });
+
+    window.onclick = function (event) {
+      if (event.target == document.querySelector("#make_prefect")) {
+        document.querySelector("#make_prefect").classList.add("hide");
+      }
+    };
+    /*  student.prefect = true; */
+  }
+}
+
+function checkIfCanBePrefect(chosenStudent) {
+  const prefects = allStudents.filter((student) => student.prefect);
+  const numberOfPrefects = prefects.length;
+
+  let prefectsFromTheSameHouse = prefects.filter((prefect) => {
+    return prefect.house === chosenStudent.house;
+  });
+  console.log("the same house", prefectsFromTheSameHouse);
+
+  let theSameGender = prefectsFromTheSameHouse.filter(
+    (prefectFromTheSameHouse) =>
+      prefectFromTheSameHouse.gender === chosenStudent.gender
+  );
+
+  console.log("this is te same gender", theSameGender);
+
+  /*  const notPrefect = prefects
+    .filter((student) => student.gender === chosenStudent.gender)
+    .shift(); */
+
+  /*   if (prefectsFromTheSameHouse.length >= 2) {
+    console.log(
+      "this is te prefectsFromTheSameHouse",
+      prefectsFromTheSameHouse
+    );
+
+    removeAorB(prefectsFromTheSameHouse[0], prefectsFromTheSameHouse[1]); */
+  if (theSameGender.length >= 1) {
+    removeOther(theSameGender);
+  } else {
+    makePrefect(chosenStudent);
+    console.log("the same house", prefectsFromTheSameHouse);
+    console.log("this is te same gender", theSameGender);
+  }
+
+  console.log(prefects);
+
+  function removeOther(student) {
+    document.querySelector("#remove_other").classList.remove("hide");
+    if (chosenStudent.gender === "girl") {
+      document.querySelector("#remove_other p span").textContent = "female";
+    } else {
+      document.querySelector("#remove_other p span").textContent = "male";
+    }
+    document
+      .querySelector("#remove_other #no")
+      .addEventListener("click", closePrefectDialog);
+    document
+      .querySelector("#remove_other #yes")
+      .addEventListener("click", clickRemoveOther);
+
+    function closePrefectDialog() {
+      document.querySelector("#remove_other").classList.add("hide");
+      document
+        .querySelector("#remove_other #no")
+        .removeEventListener("click", closePrefectDialog);
+      document
+        .querySelector("#remove_other #yes")
+        .removeEventListener("click", clickRemoveOther);
+    }
+
+    function clickRemoveOther() {
+      removePrefect(theSameGender[0]);
+      makePrefect(chosenStudent);
+      buildList();
+      closePrefectDialog();
+    }
+  }
+
+  /* function removeAorB(prefectA, prefectB) {
+    if (
+      prefectA.gender === chosenStudent.gender ||
+      prefectB.gender === chosenStudent.gender
+    ) {
+      document.querySelector("#remove_other").classList.remove("hide");
+      removeOther();
+    } else {
+      document.querySelector("#remove_aorb").classList.remove("hide");
+      document.querySelector("#remove_aorb [data-field=prefectA").textContent =
+        prefectA.firstName;
+      document.querySelector("#remove_aorb [data-field=prefectB").textContent =
+        prefectB.firstName;
+      document
+        .querySelector("#remove_aorb #removea")
+        .addEventListener("click", clickRemoveA);
+      document
+        .querySelector("#remove_aorb #removeb")
+        .addEventListener("click", clickRemoveB);
+    }
+
+    function closePrefectDialog() {
+      document.querySelector("#remove_aorb").classList.add("hide");
+
+      document
+        .querySelector("#remove_aorb #removea")
+        .removeEventListener("click", clickRemoveA);
+      document
+        .querySelector("#remove_aorb #removeb")
+        .removeEventListener("click", clickRemoveB);
+    }
+    function clickRemoveA() {
+      removePrefect(prefectA);
+      makePrefect(chosenStudent);
+      buildList();
+      closePrefectDialog();
+    }
+    function clickRemoveB() {
+      removePrefect(prefectB);
+      makePrefect(chosenStudent);
+      buildList();
+      closePrefectDialog();
+    }
+  } */
+  function removePrefect(student) {
+    student.prefect = false;
+  }
+  function makePrefect(student) {
+    console.log("the same house", prefectsFromTheSameHouse);
+    console.log("this is te same gender", theSameGender);
+    student.prefect = true;
+    /* document.querySelector("#make_prefect").classList.remove("hide");
+    document.querySelector(
+      "#make_prefect p span"
+    ).textContent = `${student.firstName} ${student.lastName}`;
+
+    document
+      .querySelector("#make_prefect #no")
+      .addEventListener("click", function () {
+        student.prefect = false;
+        console.log("this is studnt sratus", student.prefect);
+        document.querySelector("#make_prefect").classList.add("hide");
+      });
+
+    document
+      .querySelector("#make_prefect #yes")
+      .addEventListener("click", function () {
+        student.prefect = true;
+        console.log("this is studnt sratus", student.prefect);
+        document.querySelector("#make_prefect").classList.add("hide");
+      });
+
+    window.onclick = function (event) {
+      if (event.target == document.querySelector("#make_prefect")) {
+        document.querySelector("#make_prefect").classList.add("hide");
+      }
+    };
+    console.log("the same house", prefectsFromTheSameHouse);
+    console.log("this is te same gender", theSameGender);
+  }
+  console.log("the same house", prefectsFromTheSameHouse);
+  console.log("this is te same gender", theSameGender); */
+  }
 }
