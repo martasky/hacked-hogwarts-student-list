@@ -29,7 +29,7 @@
   border-radius: 16px;
   padding: 0.5rem;
 
-  width: 212px;
+  width: 170px;
   font-size: 1rem;
   font-weight: bold;
   font-family: var(--primary-font);
@@ -55,10 +55,7 @@ label {
   font-weight: normal;
   color: var(--text-color);
 }
-label {
-  display: flex;
-  flex-direction: column;
-}
+
 input {
   padding: 0.8rem;
   background-color: var(--tb-odd-color);
@@ -69,6 +66,7 @@ input {
   font-family: var(--primary-font);
   color: var(--text-color);
   height: min-content;
+  width: 80%;
 }
 ::placeholder {
   font-size: 1.438rem;
@@ -94,7 +92,45 @@ h1 {
 p,
 h2,
 label {
-  font-size: 3rem;
+  font-size: 2rem;
+}
+
+#howgarts-numbers {
+  background-color: var(--text-color);
+  border-radius: 20px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+}
+
+#howgarts-numbers ul {
+  display: flex;
+  flex-direction: row;
+}
+.flex-left {
+  width: 35%;
+}
+.flex-right {
+  width: 65%;
+}
+.flex-left li {
+  margin-bottom: 0.5rem;
+}
+.flex-right li {
+  margin-bottom: 0.5rem;
+}
+#howgarts-numbers h2 {
+  color: var(--bg--color);
+  margin-bottom: 1rem;
+}
+li {
+  list-style: none;
+  font-family: var(--primary-font);
+  color: var(--bg--color);
+  font-size: 1rem;
+}
+li span {
+  font-weight: bold;
 }
 
 th {
@@ -200,14 +236,17 @@ table {
 }
 .filters {
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
-  padding: 3rem;
-  padding-left: 0;
-  padding-right: 0;
-  width: 70%;
+  grid-template-columns: 1fr 1fr 2fr 2fr;
+  margin-top: 3rem;
+}
+.search_bar {
+  grid-row: 2;
+  display: flex;
+  grid-column: 4;
+  justify-content: flex-end;
 }
 .buttons {
-  grid-row: 2;
+  /* grid-row: 2; */
 }
 /*********** Student details pop up ********'*/
 .modal {

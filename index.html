@@ -10,7 +10,8 @@
   <header><h1>Hogwarts School of Witchcraft and Wizardry</h1></header>
   <body>
     <div class="filters">
-      <p>Choose house:</p>
+      <div class="houses">
+      <p>Show house:</p>
       <div class="buttons">
         <button class="filter" data-action="filter" data-filter="gryffindor">
           Gryffindor
@@ -23,9 +24,9 @@
         </button>
         <button class="filter" data-action="filter" data-filter="slytherin">
           Slytherin
-        </button>
+        </button></div>
       </div>
-
+<div class="student-lists">
       <p>Show students:</p>
       <div class="buttons">
         <button class="filter" data-action="filter" data-filter="prefect">
@@ -40,23 +41,25 @@
         <button class="filter" data-action="filter" data-filter="all">
           All
         </button>
-      </div>
+      </div></div>
 <div id="howgarts-numbers">
 <h2>Hogwarts in numbers:</h2>
 <ul>
+  <div class="flex-left">
   <li>Gryffindor: <span></span></li>
   <li>Hufflepuff: <span></span></li>
   <li>Ravenclaw: <span></span></li>
   <li>Slytherin: <span></span></li>
+</div><div class="flex-right">
   <li>Total number of students: <span></span></li>
   <li>Expelled students: <span></span></li>
-  <li>Currently displayed students: <span></span></li>
+  <li>Currently displayed students: <span></span></li></div>
 </ul>
 
 </div>
-      <label for="search">Search:</label
-      ><input type="text" id="search" placeholder="Search.." />
-    </div>
+<div class="search_bar">
+      <input type="text" id="search" placeholder="Search.." />
+    </div></div>
 
     <table id="list">
       <thead>

@@ -103,7 +103,29 @@ function prepareObjects(jsonData) {
   /*   displayList(allStudents); */
   buildList();
 }
-
+function displayNumbers(currentList) {
+  let expelledNum = expelledStudents.length;
+  document.querySelector(".flex-right li:nth-child(2) span").textContent =
+    expelledNum;
+  let totalNum = allStudents.length;
+  document.querySelector(".flex-right li:nth-child(1) span").textContent =
+    totalNum;
+  let currentNum = currentList.length;
+  document.querySelector(".flex-right li:nth-child(3) span").textContent =
+    currentNum;
+  let gryffindorNum = allStudents.filter(isGryffindor).length;
+  document.querySelector(".flex-left li:nth-child(1) span").textContent =
+    gryffindorNum;
+  let hufflepuffNum = allStudents.filter(isHufflepuff).length;
+  document.querySelector(".flex-left li:nth-child(2) span").textContent =
+    hufflepuffNum;
+  let ravenclawNum = allStudents.filter(isRavenclaw).length;
+  document.querySelector(".flex-left li:nth-child(3) span").textContent =
+    ravenclawNum;
+  let slytherinNum = allStudents.filter(isSlytherin).length;
+  document.querySelector(".flex-left li:nth-child(4) span").textContent =
+    slytherinNum;
+}
 function search(e) {
   const searchVal = e.target.value.toLowerCase();
   const searchResult = allStudents.filter((student) => {
@@ -269,6 +291,7 @@ function sortList(sortedList) {
 function buildList() {
   const currentList = filterList(allStudents); // FUTURE: Filter and sort currentList before displaying
   const sortedList = sortList(currentList);
+  displayNumbers(currentList);
   displayList(sortedList);
 }
 
@@ -456,17 +479,6 @@ function displayStudent(student) {
       removeStudent(student);
     });
   }
-  if (student.expelled === true) {
-    clone
-      .querySelector("[data-field=expel]")
-      .removeEventListener("click", expelStudent);
-    clone
-      .querySelector("[data-field=prefect]")
-      .removeEventListener("click", clickPrefect);
-    clone
-      .querySelector("[data-field=expel]")
-      .removeEventListener("click", expelStudent);
-  }
 
   /****** Prefects **********/
   clone.querySelector("[data-field=prefect").dataset.prefect = student.prefect;
@@ -475,11 +487,6 @@ function displayStudent(student) {
     .querySelector("[data-field=prefect")
     .addEventListener("click", clickPrefect);
 
-  if (student.expelled === true) {
-    clone
-      .querySelector("[data-field=prefect]")
-      .removeEventListener("click", clickPrefect);
-  }
   function clickPrefect() {
     console.log("what is it after click", student.prefect);
     console.log(allStudents);
@@ -534,8 +541,17 @@ function displayStudent(student) {
   }
   if (student.expelled === true) {
     clone
+      .querySelector("[data-field=expel]")
+      .removeEventListener("click", expelStudent);
+    clone.querySelector("[data-field=expel]").style.cursor = "initial";
+    clone
+      .querySelector("[data-field=prefect]")
+      .removeEventListener("click", clickPrefect);
+    clone.querySelector("[data-field=prefect]").style.cursor = "initial";
+    clone
       .querySelector("[data-field=squad]")
       .removeEventListener("click", makeMemberofSquad);
+    clone.querySelector("[data-field=squad]").style.cursor = "initial";
   }
   /*   if (lastname) {
     bloodType = "muggle";
