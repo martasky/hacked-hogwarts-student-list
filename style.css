@@ -142,8 +142,16 @@ td {
   background-repeat: no-repeat;
   cursor: pointer;
 }
-[data-field="squad"] {
+[data-field="squad"][data-squad="false"] {
   background-image: url(images/squad-inactive.svg);
+  cursor: pointer;
+  background-size: 20%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+}
+[data-field="squad"] {
+  background-image: url(images/squad-chosen.svg);
   cursor: pointer;
   background-size: 20%;
 
@@ -349,6 +357,9 @@ table {
 .dialog_content p {
   font-family: var(--primary-font);
   font-size: 1.3rem;
+  text-align: center;
+  padding: 2rem;
+  line-height: 2.2rem;
 }
 .dialog_content button {
   font-family: var(--secondary-font);

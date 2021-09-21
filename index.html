@@ -130,7 +130,7 @@
         
         <div data-student-modal="prefect">Prefect:<img src="images/prefect-inactive.svg"></div>
        <div data-student-modal="squad">Inquisitorial squad:<img src="images/squad-inactive.svg"></div></div>
-        <div data-student-modal="blood">Blood status: Muggle</div>
+        <div data-student-modal="blood">Blood status: </div>
         <div data-student-modal="expel">Expelled: No</div></div>
         
         </div>
@@ -189,12 +189,29 @@
           <!-- <h1>Warning!</h1> -->
           <div class="dialog_content">
           <p>
-            There can be only one <span></span> prefect in a house<br />Would you like to remove
-            the other prefect?
+            There can be only one <span></span> prefect in a house.<br />Would you like to remove
+            <span id="pr_name">the other prefect</span>?
           </p>
           <div class="buttons-wrapper">
         <button id="yes">Yes</button>
         <button id="no">No</button></div>
+        </div>
+         <!--  <button id="removeother">
+            Remove <span data-field="otherwinner">other</span>
+          </button> -->
+        </div>
+      </div>
+      <div id="make_member" class="modal2 hide">
+        <div class="dialog">
+          <!-- <button class="closebutton">X</button> -->
+          <!-- <h1>Warning!</h1> -->
+          <div class="dialog_content">
+          <p>
+            <span></span> can't become member of the Inquisitorial Squad. Please choose pure-blood student.
+          </p>
+          <div class="buttons-wrapper">
+        <button id="ok">Ok</button>
+        </div>
         </div>
          <!--  <button id="removeother">
             Remove <span data-field="otherwinner">other</span>

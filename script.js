@@ -93,6 +93,7 @@ function prepareObjects(jsonData) {
     student.gender = elm.gender;
     student.expelled = false;
     student.prefect = false;
+    student.squad = false;
     student.bloodType = bloodType;
     // adding new objects to the global array
     allStudents.push(student);
@@ -167,6 +168,8 @@ function filterList(filteredList) {
     filteredList = expelledStudents;
   } else if (settings.filter === "prefect") {
     filteredList = allStudents.filter((student) => student.prefect);
+  } else if (settings.filter === "squad") {
+    filteredList = allStudents.filter((student) => student.squad);
   } else {
     filteredList = allStudents.filter(all);
   }
@@ -509,8 +512,74 @@ function displayStudent(student) {
     clone.querySelector("[data-field=prefect]").style.backgroundImage =
       "url(images/prefect-inactive.svg)";
   } */
+
+  /************** Inquisitorial squad *************/
+  clone.querySelector("[data-field=squad").dataset.squad = student.squad;
+  clone
+    .querySelector("[data-field=squad]")
+    .addEventListener("click", makeMemberofSquad);
+
+  function makeMemberofSquad() {
+    if (student.squad === true) {
+      student.squad = false;
+    } else if (student.bloodType === "pure-blood") {
+      canBeMember(student);
+    } else if (student.house === "Slytherin") {
+      canBeMember(student);
+    } else {
+      wontBeMemberofSquad(student);
+    }
+
+    buildList();
+  }
+  if (student.expelled === true) {
+    clone
+      .querySelector("[data-field=squad]")
+      .removeEventListener("click", makeMemberofSquad);
+  }
+  /*   if (lastname) {
+    bloodType = "muggle";
+    if (bloodInfo.pure.includes(lastname)) {
+      bloodType = "pure-blood";
+    }
+    if (bloodInfo.half.includes(lastname)) {
+      bloodType = "half-blood";
+    }
+  } else {
+    bloodType = undefined;
+  }
+  return bloodType; */
+
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
+}
+
+function wontBeMemberofSquad(student) {
+  document.querySelector("#make_member").classList.remove("hide");
+  document.querySelector(
+    "#make_member p span"
+  ).textContent = `${student.firstName} ${student.lastName}`;
+  student.squad = false;
+  document
+    .querySelector("#make_member #ok")
+    .addEventListener("click", closeDialog);
+
+  function closeDialog() {
+    document.querySelector("#make_member").classList.add("hide");
+    document
+      .querySelector("#make_member #ok")
+      .removeEventListener("click", closeDialog);
+  }
+
+  window.onclick = function (event) {
+    if (event.target == document.querySelector("#make_member")) {
+      document.querySelector("#make_member").classList.add("hide");
+    }
+  };
+}
+function canBeMember(student) {
+  console.log("can be member", student);
+  student.squad = true;
 }
 function showDetails(student) {
   console.log("name has been clicked");
@@ -569,6 +638,10 @@ function showDetails(student) {
     document.querySelector("[data-student-modal=prefect] img").src =
       "images/prefect-chosen.svg";
   }
+  if (student.squad === true) {
+    document.querySelector("[data-student-modal=squad] img").src =
+      "images/squad-chosen.svg";
+  }
   window.onclick = function (event) {
     if (event.target == document.querySelector("#student-details-modal")) {
       document.querySelector("#student-details-modal").style.display = "none";
@@ -578,6 +651,8 @@ function showDetails(student) {
         "initial";
       document.querySelector("[data-student-modal=prefect] img").src =
         "images/prefect-inactive.svg";
+      document.querySelector("[data-student-modal=squad] img").src =
+        "images/squad-inactive.svg";
     }
   };
 }
@@ -773,6 +848,10 @@ function checkIfCanBePrefect(chosenStudent) {
     } else {
       document.querySelector("#remove_other p span").textContent = "male";
     }
+
+    document.querySelector(
+      "#remove_other p #pr_name"
+    ).textContent = `${theSameGender[0].firstName} ${theSameGender[0].lastName}`;
     document
       .querySelector("#remove_other #no")
       .addEventListener("click", closePrefectDialog);
