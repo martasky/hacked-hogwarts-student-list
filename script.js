@@ -3,6 +3,7 @@
 window.addEventListener("DOMContentLoaded", start);
 let allStudents = [];
 let expelledStudents = [];
+let bloodInfo = [];
 
 const settings = {
   filter: "all",
@@ -21,12 +22,13 @@ const Student = {
   prefect: false,
   squad: false,
   expelled: false,
+  bloodType: "",
 };
 
 function start() {
   registerButtons();
 
-  loadJSON();
+  getJSONfiles();
 }
 
 function registerButtons() {
@@ -41,21 +43,32 @@ function registerButtons() {
 
 //lets fetch json from database
 
-function loadJSON() {
-  fetch("https://petlatkea.dk/2021/hogwarts/students.json")
+function getJSONfiles() {
+  let urlStudents = "https://petlatkea.dk/2021/hogwarts/students.json";
+  let urlFamilies = "https://petlatkea.dk/2021/hogwarts/families.json";
+
+  function loadJSON() {
+    fetch(urlStudents)
+      .then((response) => response.json())
+      .then((jsonData) => {
+        prepareObjects(jsonData);
+      });
+  }
+  fetch(urlFamilies)
     .then((response) => response.json())
     .then((jsonData) => {
-      prepareObjects(jsonData);
+      bloodInfo = jsonData;
+      loadJSON();
     });
 }
-
 function prepareObjects(jsonData) {
   jsonData.forEach((elm) => {
     console.log(elm);
 
     //create new object
     const student = Object.create(Student);
-    // console.log(student);
+    console.log("do we have two lists now?=", student);
+    console.log(bloodInfo);
     // finding the values
 
     let trimmedStudent = elm.fullname.trim();
@@ -68,6 +81,7 @@ function prepareObjects(jsonData) {
     let nickName = getNickName(trimmedStudent);
     let img = getImg(firstName, lastName);
     let house = getHouse(trimmedHouse);
+    let bloodType = calculateBloodType(bloodInfo, lastName);
 
     // setting properties in the new object to that values
     student.firstName = firstName;
@@ -79,6 +93,7 @@ function prepareObjects(jsonData) {
     student.gender = elm.gender;
     student.expelled = false;
     student.prefect = false;
+    student.bloodType = bloodType;
     // adding new objects to the global array
     allStudents.push(student);
     console.log("this is", student);
@@ -150,6 +165,8 @@ function filterList(filteredList) {
     filteredList = allStudents.filter(isSlytherin);
   } else if (settings.filter === "expel") {
     filteredList = expelledStudents;
+  } else if (settings.filter === "prefect") {
+    filteredList = allStudents.filter((student) => student.prefect);
   } else {
     filteredList = allStudents.filter(all);
   }
@@ -349,7 +366,23 @@ function getHouse(houseName) {
   let housename = houseName.toLowerCase().trim();
   return housename[0].toUpperCase() + housename.substring(1);
 }
-
+function calculateBloodType(blood, lastname) {
+  console.log("this is lastname", lastname);
+  console.log("this is blood", blood);
+  let bloodType;
+  if (lastname) {
+    bloodType = "muggle";
+    if (bloodInfo.pure.includes(lastname)) {
+      bloodType = "pure-blood";
+    }
+    if (bloodInfo.half.includes(lastname)) {
+      bloodType = "half-blood";
+    }
+  } else {
+    bloodType = undefined;
+  }
+  return bloodType;
+}
 function displayList(students) {
   // clear the list
   document.querySelector("#list tbody").innerHTML = "";
@@ -424,6 +457,12 @@ function displayStudent(student) {
     clone
       .querySelector("[data-field=expel]")
       .removeEventListener("click", expelStudent);
+    clone
+      .querySelector("[data-field=prefect]")
+      .removeEventListener("click", clickPrefect);
+    clone
+      .querySelector("[data-field=expel]")
+      .removeEventListener("click", expelStudent);
   }
 
   /****** Prefects **********/
@@ -433,6 +472,11 @@ function displayStudent(student) {
     .querySelector("[data-field=prefect")
     .addEventListener("click", clickPrefect);
 
+  if (student.expelled === true) {
+    clone
+      .querySelector("[data-field=prefect]")
+      .removeEventListener("click", clickPrefect);
+  }
   function clickPrefect() {
     console.log("what is it after click", student.prefect);
     console.log(allStudents);
@@ -474,6 +518,9 @@ function showDetails(student) {
 
   document.querySelector("[data-student-modal=name]").textContent =
     student.firstName;
+  document.querySelector(
+    "[data-student-modal=blood]"
+  ).textContent = `Blood status: ${student.bloodType}`;
 
   if (student.house === "Gryffindor") {
     document.querySelector(
@@ -518,6 +565,10 @@ function showDetails(student) {
       "Expelled: Yes";
   }
 
+  if (student.prefect === true) {
+    document.querySelector("[data-student-modal=prefect] img").src =
+      "images/prefect-chosen.svg";
+  }
   window.onclick = function (event) {
     if (event.target == document.querySelector("#student-details-modal")) {
       document.querySelector("#student-details-modal").style.display = "none";
@@ -525,6 +576,8 @@ function showDetails(student) {
         "initial";
       document.querySelector("[data-student-modal=nickname]").style.display =
         "initial";
+      document.querySelector("[data-student-modal=prefect] img").src =
+        "images/prefect-inactive.svg";
     }
   };
 }
@@ -726,6 +779,11 @@ function checkIfCanBePrefect(chosenStudent) {
     document
       .querySelector("#remove_other #yes")
       .addEventListener("click", clickRemoveOther);
+    window.onclick = function (event) {
+      if (event.target == document.querySelector("#remove_other")) {
+        document.querySelector("#remove_other").classList.add("hide");
+      }
+    };
 
     function closePrefectDialog() {
       document.querySelector("#remove_other").classList.add("hide");

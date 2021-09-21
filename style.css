@@ -348,7 +348,7 @@ table {
 }
 .dialog_content p {
   font-family: var(--primary-font);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 .dialog_content button {
   font-family: var(--secondary-font);
