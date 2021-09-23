@@ -4,6 +4,7 @@ window.addEventListener("DOMContentLoaded", start);
 let allStudents = [];
 let expelledStudents = [];
 let bloodInfo = [];
+let isHacked = false;
 
 const settings = {
   filter: "all",
@@ -39,6 +40,7 @@ function registerButtons() {
     .querySelectorAll(`[data-action="sort"]`)
     .forEach((button) => button.addEventListener("click", selectSort));
   document.querySelector("#search").addEventListener("keyup", search);
+  document.querySelector("body").addEventListener("click", hackTheSystem);
 }
 
 //lets fetch json from database
@@ -480,6 +482,14 @@ function displayStudent(student) {
     });
   }
 
+  if (student.firstName === "Marta") {
+    clone
+      .querySelector("[data-field=expel]")
+      .removeEventListener("click", expelStudent);
+    clone
+      .querySelector("[data-field=expel]")
+      .addEventListener("click", youCantExpelMe);
+  }
   /****** Prefects **********/
   clone.querySelector("[data-field=prefect").dataset.prefect = student.prefect;
 
@@ -669,6 +679,8 @@ function showDetails(student) {
         "images/prefect-inactive.svg";
       document.querySelector("[data-student-modal=squad] img").src =
         "images/squad-inactive.svg";
+      document.querySelector("[data-student-modal=expel]").textContent =
+        "Expelled: No";
     }
   };
 }
@@ -981,4 +993,39 @@ function checkIfCanBePrefect(chosenStudent) {
   console.log("the same house", prefectsFromTheSameHouse);
   console.log("this is te same gender", theSameGender); */
   }
+}
+
+function hackTheSystem() {
+  console.log("hacking started");
+  isHacked = true;
+  document.querySelector("body").removeEventListener("click", hackTheSystem);
+  addMyName();
+}
+
+function addMyName() {
+  const me = Object.create(Student);
+  me.firstName = "Marta";
+  me.lastName = "Skrzypczak";
+  me.middleName = "";
+  me.nickName = "";
+  me.img = "";
+  me.house = "Slytherin";
+  me.gender = "girl";
+  me.expelled = false;
+  me.prefect = false;
+  me.squad = false;
+  me.bloodType = "pure-blood";
+  allStudents.push(me);
+  console.log("name has been added", allStudents);
+  buildList();
+}
+
+function youCantExpelMe() {
+  console.log("buahahhhaha");
+  document.querySelector(".dontTryToRemoveMe").style.visibility = "visible";
+  let laughSound = document.querySelector("#laughter");
+  laughSound.play();
+  laughSound.addEventListener("ended", () => {
+    document.querySelector(".dontTryToRemoveMe").style.visibility = "hidden";
+  });
 }

@@ -7,136 +7,169 @@
     <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
-  <header><h1>Hogwarts School of Witchcraft and Wizardry</h1></header>
+
   <body>
-    <div class="filters">
-      <div class="houses">
-      <p>Show house:</p>
-      <div class="buttons">
-        <button class="filter" data-action="filter" data-filter="gryffindor">
-          Gryffindor
-        </button>
-        <button class="filter" data-action="filter" data-filter="hufflepuff">
-          Hufflepuff
-        </button>
-        <button class="filter" data-action="filter" data-filter="ravenclaw">
-          Ravenclaw
-        </button>
-        <button class="filter" data-action="filter" data-filter="slytherin">
-          Slytherin
-        </button></div>
-      </div>
-<div class="student-lists">
-      <p>Show students:</p>
-      <div class="buttons">
-        <button class="filter" data-action="filter" data-filter="prefect">
-          Prefects
-        </button>
-        <button class="filter" data-action="filter" data-filter="squad">
-          Inquisitorial squad
-        </button>
-        <button class="filter" data-action="filter" data-filter="expel">
-          Expelled
-        </button>
-        <button class="filter" data-action="filter" data-filter="all">
-          All
-        </button>
-      </div></div>
-<div id="howgarts-numbers">
-<h2>Hogwarts in numbers:</h2>
-<ul>
-  <div class="flex-left">
-  <li>Gryffindor: <span></span></li>
-  <li>Hufflepuff: <span></span></li>
-  <li>Ravenclaw: <span></span></li>
-  <li>Slytherin: <span></span></li>
-</div><div class="flex-right">
-  <li>Total number of students: <span></span></li>
-  <li>Expelled students: <span></span></li>
-  <li>Currently displayed students: <span></span></li></div>
-</ul>
-
-</div>
-<div class="search_bar">
-      <input type="text" id="search" placeholder="Search.." />
-    </div></div>
-
-    <table id="list">
-      <thead>
-        <tr id="sorting">
-          <th data-action="sort" data-sort-direction="asc" data-sort="firstName">
-            Name
-          </th>
-          <th
-            data-action="sort"
-            data-sort-direction="asc"
-            data-sort="middleName"
-          >
-            Middle name
-          </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="nickName">
-            Nickname
-          </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="lastName">
-            Last name
-          </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="house">
-            House
-          </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="prefect">
-            Prefect
-          </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="squad">
-            Inquisitorial squad
-          </th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="expel">
-            Expel
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- animal template will be copied and inserted here -->
-      </tbody>
-      <tfoot></tfoot>
-    </table>
-
-    <template id="student">
-      <tr>
-        <td data-field="name">NAME</td>
-        <td data-field="middlename">TYPE</td>
-        <td data-field="nickname">DESCRIPTION</td>
-        <td data-field="lastname">AGE</td>
-        <td data-field="house">AGE</td>
-        <td data-field="prefect"></td>
-        <td data-field="squad"></td>
-        <td data-field="expel"></td>
-      </tr>
-    </template>
-    <div id="student-details-modal" class="modal">
-      <div class="student-details-model-content">
-         
-        <div class="student-details">
-          
-         <!--  <div class="info-wrapper"> -->
-         
-         <!--  <div class="info-wrapper-text"> -->
-           <div class="popup-student-names">
-        <div data-student-modal="name"></div>
-        <div data-student-modal="middlename"></div>
-        <div data-student-modal="nickname"></div>
-        <div data-student-modal="lastname"></div></div>
-        <div class="popup-layout">
-        <div data-student-modal="img"><img src=""></div>
-      <!-- </div>
-        </div> -->
-        <div class="student-functions">
-        
-        <div data-student-modal="prefect">Prefect:<img src="images/prefect-inactive.svg"></div>
-       <div data-student-modal="squad">Inquisitorial squad:<img src="images/squad-inactive.svg"></div></div>
-        <div data-student-modal="blood">Blood status: </div>
-        <div data-student-modal="expel">Expelled: No</div></div>
-        
+    <header><h1>Hogwarts School of Witchcraft and Wizardry</h1></header>
+    <main>
+      <div class="filters">
+        <div class="houses">
+          <p>Show house:</p>
+          <div class="buttons">
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter="gryffindor"
+            >
+              Gryffindor
+            </button>
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter="hufflepuff"
+            >
+              Hufflepuff
+            </button>
+            <button class="filter" data-action="filter" data-filter="ravenclaw">
+              Ravenclaw
+            </button>
+            <button class="filter" data-action="filter" data-filter="slytherin">
+              Slytherin
+            </button>
+          </div>
         </div>
+        <div class="student-lists">
+          <p>Show students:</p>
+          <div class="buttons">
+            <button class="filter" data-action="filter" data-filter="prefect">
+              Prefects
+            </button>
+            <button class="filter" data-action="filter" data-filter="squad">
+              Inquisitorial squad
+            </button>
+            <button class="filter" data-action="filter" data-filter="expel">
+              Expelled
+            </button>
+            <button class="filter" data-action="filter" data-filter="all">
+              All
+            </button>
+          </div>
+        </div>
+        <div id="howgarts-numbers">
+          <h2>Hogwarts in numbers:</h2>
+          <ul>
+            <div class="flex-left">
+              <li>Gryffindor: <span></span></li>
+              <li>Hufflepuff: <span></span></li>
+              <li>Ravenclaw: <span></span></li>
+              <li>Slytherin: <span></span></li>
+            </div>
+            <div class="flex-right">
+              <li>Total number of students: <span></span></li>
+              <li>Expelled students: <span></span></li>
+              <li>Currently displayed students: <span></span></li>
+            </div>
+          </ul>
+        </div>
+        <div class="search_bar">
+          <input type="text" id="search" placeholder="Search.." />
+        </div>
+      </div>
+
+      <table id="list">
+        <thead>
+          <tr id="sorting">
+            <th
+              data-action="sort"
+              data-sort-direction="asc"
+              data-sort="firstName"
+            >
+              Name
+            </th>
+            <th
+              data-action="sort"
+              data-sort-direction="asc"
+              data-sort="middleName"
+            >
+              Middle name
+            </th>
+            <th
+              data-action="sort"
+              data-sort-direction="asc"
+              data-sort="nickName"
+            >
+              Nickname
+            </th>
+            <th
+              data-action="sort"
+              data-sort-direction="asc"
+              data-sort="lastName"
+            >
+              Last name
+            </th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="house">
+              House
+            </th>
+            <th
+              data-action="sort"
+              data-sort-direction="asc"
+              data-sort="prefect"
+            >
+              Prefect
+            </th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="squad">
+              Inquisitorial squad
+            </th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="expel">
+              Expel
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- animal template will be copied and inserted here -->
+        </tbody>
+        <tfoot></tfoot>
+      </table>
+
+      <template id="student">
+        <tr>
+          <td data-field="name">NAME</td>
+          <td data-field="middlename">TYPE</td>
+          <td data-field="nickname">DESCRIPTION</td>
+          <td data-field="lastname">AGE</td>
+          <td data-field="house">AGE</td>
+          <td data-field="prefect"></td>
+          <td data-field="squad"></td>
+          <td data-field="expel"></td>
+        </tr>
+      </template>
+      <div id="student-details-modal" class="modal">
+        <div class="student-details-model-content">
+          <div class="student-details">
+            <!--  <div class="info-wrapper"> -->
+
+            <!--  <div class="info-wrapper-text"> -->
+            <div class="popup-student-names">
+              <div data-student-modal="name"></div>
+              <div data-student-modal="middlename"></div>
+              <div data-student-modal="nickname"></div>
+              <div data-student-modal="lastname"></div>
+            </div>
+            <div class="popup-layout">
+              <div data-student-modal="img"><img src="" /></div>
+              <!-- </div>
+        </div> -->
+              <div class="student-functions">
+                <div data-student-modal="prefect">
+                  Prefect:<img src="images/prefect-inactive.svg" />
+                </div>
+                <div data-student-modal="squad">
+                  Inquisitorial squad:<img src="images/squad-inactive.svg" />
+                </div>
+              </div>
+              <div data-student-modal="blood">Blood status:</div>
+              <div data-student-modal="expel">Expelled: No</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -145,19 +178,18 @@
           <!-- <button class="closebutton">X</button> -->
           <!-- <h1>Warning!</h1> -->
           <div class="dialog_content">
-          <p>
-            Would you like to expel <span>student name</span>?
-          </p>
-          <div class="buttons-wrapper">
-        <button id="yes">Yes</button>
-        <button id="no">No</button></div>
-        </div>
-         <!--  <button id="removeother">
+            <p>Would you like to expel <span>student name</span>?</p>
+            <div class="buttons-wrapper">
+              <button id="yes">Yes</button>
+              <button id="no">No</button>
+            </div>
+          </div>
+          <!--  <button id="removeother">
             Remove <span data-field="otherwinner">other</span>
           </button> -->
         </div>
       </div>
-  <!--     <div id="make_prefect" class="modal2 hide">
+      <!--     <div id="make_prefect" class="modal2 hide">
         <div class="dialog">
           
           <div class="dialog_content">
@@ -171,7 +203,7 @@
         
         </div>
       </div> -->
-   <!--    <div id="remove_prefect" class="modal2 hide">
+      <!--    <div id="remove_prefect" class="modal2 hide">
         <div class="dialog">
         
           <div class="dialog_content">
@@ -181,25 +213,25 @@
         <button id="yes">Yes</button>
         <button id="no">No</button></div>
         </div> -->
-         <!--  <button id="removeother">
+      <!--  <button id="removeother">
             Remove <span data-field="otherwinner">other</span>
           </button> -->
-        </div>
-      </div>
+
       <div id="remove_other" class="modal2 hide">
         <div class="dialog">
           <!-- <button class="closebutton">X</button> -->
           <!-- <h1>Warning!</h1> -->
           <div class="dialog_content">
-          <p>
-            There can be only one <span></span> prefect in a house.<br />Would you like to remove
-            <span id="pr_name">the other prefect</span>?
-          </p>
-          <div class="buttons-wrapper">
-        <button id="yes">Yes</button>
-        <button id="no">No</button></div>
-        </div>
-         <!--  <button id="removeother">
+            <p>
+              There can be only one <span></span> prefect in a house.<br />Would
+              you like to remove <span id="pr_name">the other prefect</span>?
+            </p>
+            <div class="buttons-wrapper">
+              <button id="yes">Yes</button>
+              <button id="no">No</button>
+            </div>
+          </div>
+          <!--  <button id="removeother">
             Remove <span data-field="otherwinner">other</span>
           </button> -->
         </div>
@@ -209,19 +241,20 @@
           <!-- <button class="closebutton">X</button> -->
           <!-- <h1>Warning!</h1> -->
           <div class="dialog_content">
-          <p>
-            <span></span> can't become member of the Inquisitorial Squad. Please choose pure-blood student.
-          </p>
-          <div class="buttons-wrapper">
-        <button id="ok">Ok</button>
-        </div>
-        </div>
-         <!--  <button id="removeother">
+            <p>
+              <span></span> can't become member of the Inquisitorial Squad.
+              Please choose pure-blood student.
+            </p>
+            <div class="buttons-wrapper">
+              <button id="ok">Ok</button>
+            </div>
+          </div>
+          <!--  <button id="removeother">
             Remove <span data-field="otherwinner">other</span>
           </button> -->
         </div>
       </div>
-     <!--  <div id="remove_aorb" class="modal2 hide">
+      <!--  <div id="remove_aorb" class="modal2 hide">
         <div class="dialog">
           
           <div class="dialog_content">
@@ -237,13 +270,15 @@
               Remove <span data-field="prefectB">B</span>
             </button></div>
         </div> -->
-         <!--  <button id="removeother">
+      <!--  <button id="removeother">
             Remove <span data-field="otherwinner">other</span>
           </button> -->
-        </div>
+      <div class="dontTryToRemoveMe hide">
+        <p>You can't remove me!!!</p>
+        <audio id="laughter" src="sounds/laughhowl1.mp3"></audio>
       </div>
-
-    </div>
+    </main>
   </body>
+
   <script src="script.js"></script>
 </html>
