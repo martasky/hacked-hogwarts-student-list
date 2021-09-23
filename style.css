@@ -30,8 +30,8 @@
   border-radius: 16px;
   padding: 0.5rem;
 
-  width: 170px;
-  font-size: 1rem;
+  width: 150px;
+  font-size: 0.8rem;
   font-weight: bold;
   font-family: var(--primary-font);
   border: none;
@@ -67,7 +67,7 @@ input {
   font-family: var(--primary-font);
   color: var(--text-color);
   height: min-content;
-  width: 80%;
+  width: 90%;
 }
 ::placeholder {
   font-size: 1.438rem;
@@ -80,6 +80,7 @@ header {
   margin-left: 7rem;
   margin-right: 7rem;
   background-color: var(--bg--color);
+  margin-bottom: 7rem;
 }
 header {
   margin: 0;
@@ -93,7 +94,7 @@ h1 {
 p,
 h2,
 label {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 #howgarts-numbers {
@@ -195,6 +196,19 @@ td {
   background-position: center;
   background-repeat: no-repeat;
 }
+[data-exstudent="true"] {
+  animation: fadeAway 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeAway {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 /* tr:nth-child(odd) [data-field="prefect"] {
   background-image: url(images/prefect-chosen.svg);
   cursor: pointer;
@@ -237,13 +251,13 @@ table {
 }
 .filters {
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr 2.5fr 2fr;
   margin-top: 3rem;
 }
 .search_bar {
   grid-row: 2;
   display: flex;
-  grid-column: 4;
+  grid-column: 5;
   justify-content: flex-end;
 }
 .buttons {
@@ -334,29 +348,6 @@ table {
   font-size: 28px;
   font-weight: bold;
 } */
-/* @media screen and (min-width: 1600px) {
-  .student-details-model-content {
-    background-image: url(images/info-popup.svg);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    margin: auto;
-
-    width: 800px;
-    height: 1000px;
-  }
-  .student-details {
-    background-color: var(--btn-color);
-    position: relative;
-    left: 210px;
-    top: 150px;
-    z-index: 1;
-    width: 380px;
-    height: 560px;
-    color: var(--bg--color);
-    font-family: var(--primary-font);
-  }
-}
- */
 
 #sorting th.sortby {
   text-decoration: underline;
@@ -480,4 +471,57 @@ table {
   font-size: 10rem;
   color: red;
   font-family: "Creepster", cursive;
+}
+.hackedSquad {
+  visibility: hidden;
+  background-color: black;
+  position: fixed; /* Stay in place */
+  z-index: 1;
+
+  left: 0;
+  top: 0;
+  width: 100vw; /* Full width */
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+.hackedSquad p {
+  font-size: 10rem;
+  color: red;
+  font-family: "Creepster", cursive;
+  text-align: center;
+}
+iframe {
+  visibility: hidden;
+}
+
+@media screen and (min-width: 1600px) {
+  p,
+  h2 {
+    font-family: 2rem;
+  }
+  .buttons button {
+    width: 170px;
+    font-size: 1rem;
+  }
+  /*   .student-details-model-content {
+    background-image: url(images/info-popup.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: auto;
+
+    width: 800px;
+    height: 1000px;
+  }
+  .student-details {
+    background-color: var(--btn-color);
+    position: relative;
+    left: 210px;
+    top: 150px;
+    z-index: 1;
+    width: 380px;
+    height: 560px;
+    color: var(--bg--color);
+    font-family: var(--primary-font);
+  } */
 }

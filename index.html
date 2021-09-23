@@ -40,6 +40,9 @@
         <div class="student-lists">
           <p>Show students:</p>
           <div class="buttons">
+            <button class="filter" data-action="filter" data-filter="all">
+              All
+            </button>
             <button class="filter" data-action="filter" data-filter="prefect">
               Prefects
             </button>
@@ -49,8 +52,27 @@
             <button class="filter" data-action="filter" data-filter="expel">
               Expelled
             </button>
-            <button class="filter" data-action="filter" data-filter="all">
-              All
+          </div>
+        </div>
+        <div class="blood-status">
+          <p>Check blood status:</p>
+          <div class="buttons">
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter="pure-blood"
+            >
+              Pure-bloods
+            </button>
+            <button
+              class="filter"
+              data-action="filter"
+              data-filter="half-blood"
+            >
+              Half-bloods
+            </button>
+            <button class="filter" data-action="filter" data-filter="muggle">
+              Muggles
             </button>
           </div>
         </div>
@@ -273,9 +295,22 @@
       <!--  <button id="removeother">
             Remove <span data-field="otherwinner">other</span>
           </button> -->
-      <div class="dontTryToRemoveMe hide">
+      <div class="dontTryToRemoveMe">
         <p>You can't remove me!!!</p>
         <audio id="laughter" src="sounds/laughhowl1.mp3"></audio>
+        <!-- <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/N7piTcDllnY?autoplay=1&mute=1"
+          title="YouTube video player"
+          frameborder="1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe> -->
+      </div>
+      <div class="hackedSquad">
+        <p><span>Student</span> has been removed from Inquisitorial Squad</p>
+        <audio id="howl" src="sounds/Wolf_Howl.mp3"></audio>
       </div>
     </main>
   </body>
