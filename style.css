@@ -494,16 +494,46 @@ table {
 iframe {
   visibility: hidden;
 }
+.hackedColors {
+  background-color: red;
+  color: black;
+}
+@media screen and (max-width: 1400px) {
+  p,
+  h2 {
+    font-size: 1.5rem;
+  }
+  h1 {
+    font-size: 4rem;
+  }
+  .buttons button {
+    width: 120px;
+    font-size: 0.7rem;
+  }
+  th {
+    font-size: 2rem;
+  }
+  td {
+    font-size: 1.2rem;
+  }
+  li {
+    font-size: 0.8rem;
+  }
+  input {
+    font-size: 1.2rem;
+  }
+}
 
 @media screen and (min-width: 1600px) {
   p,
   h2 {
-    font-family: 2rem;
+    font-size: 2rem;
   }
   .buttons button {
     width: 170px;
     font-size: 1rem;
   }
+
   /*   .student-details-model-content {
     background-image: url(images/info-popup.svg);
     background-repeat: no-repeat;

@@ -201,6 +201,18 @@ function filterList(filteredList) {
     filteredList = allStudents.filter((student) => student.prefect);
   } else if (settings.filter === "squad") {
     filteredList = allStudents.filter((student) => student.squad);
+  } else if (settings.filter === "pure-blood") {
+    filteredList = allStudents.filter(
+      (student) => student.bloodType === "pure-blood"
+    );
+  } else if (settings.filter === "half-blood") {
+    filteredList = allStudents.filter(
+      (student) => student.bloodType === "half-blood"
+    );
+  } else if (settings.filter === "muggle") {
+    filteredList = allStudents.filter(
+      (student) => student.bloodType === "muggle"
+    );
   } else {
     filteredList = allStudents.filter(all);
   }
@@ -298,6 +310,9 @@ function sortList(sortedList) {
 }
 
 function buildList() {
+  /*  if (isHacked === true) {
+    randomizeBloodStatus();
+  } */
   const currentList = filterList(allStudents); // FUTURE: Filter and sort currentList before displaying
   const sortedList = sortList(currentList);
   displayNumbers(currentList);
@@ -1052,6 +1067,7 @@ function hackTheSystem() {
   document.querySelector("header").removeEventListener("click", hackTheSystem);
   addMyName();
   randomizeBloodStatus();
+  changeColors();
   buildList();
 }
 
