@@ -41,12 +41,7 @@
 button:hover {
   background-color: var(--btn-hover-color);
 }
-/* .student-details {
-  border: none;
-  margin: 0;
-  padding: 0;
-  background-color: none;
-} */
+
 h1,
 h2,
 p,
@@ -158,13 +153,6 @@ td {
   background-position: center;
   background-repeat: no-repeat;
 }
-/* [data-field="prefect"] {
-  background-image: url(images/prefect-inactive.svg);
-  cursor: pointer;
-  background-size: 50%;
-  background-position: center;
-  background-repeat: no-repeat;
-} */
 
 [data-field="prefect"][data-prefect="false"] {
   background-image: url(images/prefect-inactive.svg);
@@ -209,24 +197,6 @@ td {
     opacity: 0;
   }
 }
-/* tr:nth-child(odd) [data-field="prefect"] {
-  background-image: url(images/prefect-chosen.svg);
-  cursor: pointer;
-  background-size: 50%;
-  background-position: center;
-  background-repeat: no-repeat;
-} */
-/* tr:nth-child(2) [data-field="squad"],
-tr:nth-child(5) [data-field="squad"],
-tr:nth-child(11) [data-field="squad"],
-tr:nth-child(22) [data-field="squad"],
-tr:nth-child(28) [data-field="squad"] {
-  background-image: url(images/squad-chosen.svg);
-  cursor: pointer;
-  background-size: 20%;
-  background-position: center;
-  background-repeat: no-repeat;
-} */
 
 table {
   width: 100%;
@@ -260,22 +230,23 @@ table {
   grid-column: 5;
   justify-content: flex-end;
 }
-.buttons {
-  /* grid-row: 2; */
+
+#sorting th.sortby {
+  text-decoration: underline;
 }
 /*********** Student details pop up ********'*/
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  /*  z-index: 1; */ /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  display: none;
+  position: fixed;
+
+  padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 .student-details-model-content {
   background-image: url(images/slytherin-bg-ver2.svg);
@@ -341,35 +312,12 @@ table {
   grid-column: 1 / -1;
 }
 
-/* The Close Button */
-/* .close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-} */
-
-#sorting th.sortby {
-  text-decoration: underline;
-}
-/* 
-#sorting th.sortby[data-sort-direction="asc"]::after {
-  content: "⇓";
-}
-
-#sorting th.sortby[data-sort-direction="desc"]::after {
-  content: "⇑";
-}
- */
-
 /*********'  confirmation modal ***********/
 
 .hide {
   visibility: hidden;
 }
 .dialog {
-  /* display: none; */
-
   padding: 2em;
   background-image: url(images/message-modal.svg);
   background-repeat: no-repeat;
@@ -408,40 +356,7 @@ table {
   margin: 0 auto;
   justify-content: space-around;
 }
-.dialog.show {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
-}
 
-.dialogcontent {
-  background-color: rgb(233, 233, 255);
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 10vw 8vw 8vw 8vw;
-  position: relative;
-}
-
-/* .dialog .closebutton {
-  -moz-appearance: none;
-  appearance: none;
-  position: absolute;
-  top: 4vw;
-  right: 4vw;
-  border: none;
-  background-color: transparent;
-  font-size: 90%;
-  color: darkgray;
-} */
-
-.dialog .closebutton:hover {
-  color: black;
-}
 .modal2 {
   position: fixed;
   top: 0;
@@ -457,12 +372,12 @@ table {
 .dontTryToRemoveMe {
   visibility: hidden;
   background-color: black;
-  position: fixed; /* Stay in place */
+  position: fixed;
   z-index: 1;
 
   left: 0;
   top: 0;
-  width: 100vw; /* Full width */
+  width: 100vw;
   height: 100vh;
   display: grid;
   place-items: center;
@@ -475,12 +390,12 @@ table {
 .hackedSquad {
   visibility: hidden;
   background-color: black;
-  position: fixed; /* Stay in place */
+  position: fixed;
   z-index: 1;
 
   left: 0;
   top: 0;
-  width: 100vw; /* Full width */
+  width: 100vw;
   height: 100vh;
   display: grid;
   place-items: center;
@@ -491,13 +406,7 @@ table {
   font-family: "Creepster", cursive;
   text-align: center;
 }
-iframe {
-  visibility: hidden;
-}
-.hackedColors {
-  background-color: red;
-  color: black;
-}
+
 @media screen and (max-width: 1400px) {
   p,
   h2 {
@@ -533,25 +442,4 @@ iframe {
     width: 170px;
     font-size: 1rem;
   }
-
-  /*   .student-details-model-content {
-    background-image: url(images/info-popup.svg);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    margin: auto;
-
-    width: 800px;
-    height: 1000px;
-  }
-  .student-details {
-    background-color: var(--btn-color);
-    position: relative;
-    left: 210px;
-    top: 150px;
-    z-index: 1;
-    width: 380px;
-    height: 560px;
-    color: var(--bg--color);
-    font-family: var(--primary-font);
-  } */
 }

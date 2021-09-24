@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>Hogwarts student list</title>
   </head>
 
   <body>
@@ -146,9 +146,7 @@
             </th>
           </tr>
         </thead>
-        <tbody>
-          <!-- animal template will be copied and inserted here -->
-        </tbody>
+        <tbody></tbody>
         <tfoot></tfoot>
       </table>
 
@@ -167,9 +165,6 @@
       <div id="student-details-modal" class="modal">
         <div class="student-details-model-content">
           <div class="student-details">
-            <!--  <div class="info-wrapper"> -->
-
-            <!--  <div class="info-wrapper-text"> -->
             <div class="popup-student-names">
               <div data-student-modal="name"></div>
               <div data-student-modal="middlename"></div>
@@ -178,8 +173,7 @@
             </div>
             <div class="popup-layout">
               <div data-student-modal="img"><img src="" /></div>
-              <!-- </div>
-        </div> -->
+
               <div class="student-functions">
                 <div data-student-modal="prefect">
                   Prefect:<img src="images/prefect-inactive.svg" />
@@ -197,8 +191,6 @@
 
       <div id="expel_student" class="modal2 hide">
         <div class="dialog">
-          <!-- <button class="closebutton">X</button> -->
-          <!-- <h1>Warning!</h1> -->
           <div class="dialog_content">
             <p>Would you like to expel <span>student name</span>?</p>
             <div class="buttons-wrapper">
@@ -206,43 +198,11 @@
               <button id="no">No</button>
             </div>
           </div>
-          <!--  <button id="removeother">
-            Remove <span data-field="otherwinner">other</span>
-          </button> -->
         </div>
       </div>
-      <!--     <div id="make_prefect" class="modal2 hide">
-        <div class="dialog">
-          
-          <div class="dialog_content">
-          <p>
-            Would you like to make <span>student name</span> a prefect?
-          </p>
-          <div class="buttons-wrapper">
-        <button id="yes">Yes</button>
-        <button id="no">No</button></div>
-        </div>
-        
-        </div>
-      </div> -->
-      <!--    <div id="remove_prefect" class="modal2 hide">
-        <div class="dialog">
-        
-          <div class="dialog_content">
-          <p>
-            Would you like to remove <span>student name</span> from prefects?</p>
-          <div class="buttons-wrapper">
-        <button id="yes">Yes</button>
-        <button id="no">No</button></div>
-        </div> -->
-      <!--  <button id="removeother">
-            Remove <span data-field="otherwinner">other</span>
-          </button> -->
 
       <div id="remove_other" class="modal2 hide">
         <div class="dialog">
-          <!-- <button class="closebutton">X</button> -->
-          <!-- <h1>Warning!</h1> -->
           <div class="dialog_content">
             <p>
               There can be only one <span></span> prefect in a house.<br />Would
@@ -253,15 +213,10 @@
               <button id="no">No</button>
             </div>
           </div>
-          <!--  <button id="removeother">
-            Remove <span data-field="otherwinner">other</span>
-          </button> -->
         </div>
       </div>
       <div id="make_member" class="modal2 hide">
         <div class="dialog">
-          <!-- <button class="closebutton">X</button> -->
-          <!-- <h1>Warning!</h1> -->
           <div class="dialog_content">
             <p>
               <span></span> can't become member of the Inquisitorial Squad.
@@ -271,42 +226,12 @@
               <button id="ok">Ok</button>
             </div>
           </div>
-          <!--  <button id="removeother">
-            Remove <span data-field="otherwinner">other</span>
-          </button> -->
         </div>
       </div>
-      <!--  <div id="remove_aorb" class="modal2 hide">
-        <div class="dialog">
-          
-          <div class="dialog_content">
-          <p>
-            There can not be more than two prefects in one house<br />Do you want to remove one
-          of the existing prefects?
-          </p>
-          <div class="buttons-wrapper">
-            <button id="removea">
-              Remove <span data-field="prefectA">A</span>
-            </button>
-            <button id="removeb">
-              Remove <span data-field="prefectB">B</span>
-            </button></div>
-        </div> -->
-      <!--  <button id="removeother">
-            Remove <span data-field="otherwinner">other</span>
-          </button> -->
+
       <div class="dontTryToRemoveMe">
         <p>You can't remove me!!!</p>
         <audio id="laughter" src="sounds/laughhowl1.mp3"></audio>
-        <!-- <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/N7piTcDllnY?autoplay=1&mute=1"
-          title="YouTube video player"
-          frameborder="1"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe> -->
       </div>
       <div class="hackedSquad">
         <p><span>Student</span> has been removed from Inquisitorial Squad</p>
